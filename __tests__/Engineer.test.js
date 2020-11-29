@@ -8,6 +8,13 @@ test("Able to set GitHub via constructor", () => {
     expect(testObj.github).toBe(testGitHub);
 });
 
+test("getGithub() returns testGithub", () => {
+    const testGitHub = 'geneskit';
+    const testObj = new Engineer('Emily', 21, 'notreal@email.com', testGitHub);
+
+    expect(testObj.getGithub()).toBe(testGitHub);
+})
+
 test("getRole() returns Engineer", () => {
     const testRole = 'Engineer';
     const testObj = new Engineer('Emily', 21, 'notreal@email.com', 'geneskit');
