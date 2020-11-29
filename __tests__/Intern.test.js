@@ -15,9 +15,9 @@ test("getSchool() test", () => {
     expect(testIntern.getSchool()).toBe(testSchool);
 });
 
-test("getSchool() test", () => {
-    const testSchool = 'University of Arizona';
-    const testIntern = new Intern('Emily', 21, 'notreal@email.com', testSchool);
+test("getRole() returns Intern", () => {
+    const testRole = 'Intern';
+    const testObj = new Intern('Emily', 21, 'notreal@email.com', 'geneskit');
 
-    expect(testIntern.getSchool()).toBe(testSchool);
+    expect(testObj.getRole()).toBe(testRole);
 });
