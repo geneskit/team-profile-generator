@@ -7,17 +7,10 @@ test("Set officeNo by constructor", () => {
 
     expect(testManager.officeNo).toBe(testOfficeNo);
 });
-// Refine the following code for Manager test (C&P from Intern.test.js) 
-// test("getSchool() test", () => {
-//     const testSchool = 'University of Arizona';
-//     const testManager = new Manager('Emily', 21, 'notreal@email.com', testSchool);
 
-//     expect(testManager.getSchool()).toBe(testSchool);
-// });
+test("getRole() should return Manager", () => {
+    const testRole = 'Manager';
+    const testManager = new Manager('Emily', 21, 'notreal@email.com');
 
-// test("getRole() returns Manager", () => {
-//     const testRole = 'Manager';
-//     const testObj = new Manager('Emily', 21, 'notreal@email.com', 'geneskit');
-
-//     expect(testObj.getRole()).toBe(testRole);
-// });
+    expect(testManager.getRole()).toBe(testRole);
+}); 
