@@ -9,6 +9,8 @@ const Manager = require("./lib/Manager");
 
 const employeeData = [];
 
+init();
+
 // start generator
 function init () {
     promptManager();
@@ -84,6 +86,9 @@ function promptManager () {
                 }
             }
         },
+// Figure out how to set up the loop: Would you like to add another team member?
+        // yes -> Which team member would you like to add? (Engineer or Intern)
+        // no -> Finish creating the HTML
         {
             type: 'list',
             name: 'confirmAdd',
@@ -98,7 +103,7 @@ function promptManager () {
             }
             // figure out the else function
         },
-        
+// Do I need to add all the answers into an array?
         
     ]);
 };
@@ -112,13 +117,33 @@ function addTeamMember () {
             message: 'What is the role of the next team member?',
             choices: [
                 'Engineer',
-                'Intern'
-            ]
+                'Intern',
+                'I do not want to continue.'
+            ],
+            validate: nextEmployeeRole => 
+            {
+                if (nextEmployeeRole === 'Engineer') 
+                {
+                    addEngineer();
+                    return true;
+                }
+                else if (nextEmployeeRole === 'Intern') {
+                    addIntern();
+                    return true;
+                }
+                else if (nextEmployeeRole === 'I do not want to continue.') {
+                    // add code to finish building the html
+                    return true;
+                }
+                else 
+                {
+                    console.log('Please enter a valid response! ');
+                    return false;
+                }
+            }
         }
     ])
-    if (nextEmployeeRole === 'Engineer') {
-        addEngineer();           
-    }
+    
 };
 
 // engineer questions
@@ -184,4 +209,3 @@ function addIntern () {
 }
 
 // begin building html
-function 
