@@ -83,18 +83,105 @@ function promptManager () {
                     return false;
                 }
             }
-        }
-    ])
+        },
+        {
+            type: 'list',
+            name: 'confirmAdd',
+            message: 'Would you like to add another team member?',
+            choices: [
+                'yes',
+                'no'
+            ],
+            
+            if (confirmAdd) {
+                addTeamMember();
+            }
+            // figure out the else function
+        },
+        
+        
+    ]);
 };
+
 // ask to add another employee (engineer or intern) or to finish building team
 function addTeamMember () {
-
+    inquirer.prompt([
+        {
+            type: 'list',
+            name: 'nextEmployeeRole',
+            message: 'What is the role of the next team member?',
+            choices: [
+                'Engineer',
+                'Intern'
+            ]
+        }
+    ])
+    if (nextEmployeeRole === 'Engineer') {
+        addEngineer();           
+    }
 };
+
 // engineer questions
 function addEngineer () {
-
+    inquirer.prompt([
+        {
+            type: 'input',
+            name: 'nameInput',
+            message: 'What is your name?',
+            validate: managerNameInput => 
+            {
+                if (managerNameInput) 
+                {
+                    return true;
+                }
+                else 
+                {
+                    console.log('Please enter your name! ');
+                    return false;
+                }
+            }
+        },
+        {
+            type: 'number',
+            name: 'idNumber',
+            message: 'What is your ID number?',
+            validate: managerIdInput => 
+            {
+                if (managerIdInput) 
+                {
+                    return true;
+                }
+                else 
+                {
+                    console.log('Please enter your ID number! ');
+                    return false;
+                }
+            }
+        },
+        {
+            type: 'input',
+            name: 'email',
+            message: 'What is your email address?',
+            validate: managerEmailInput => 
+            {
+                if (managerEmailInput) 
+                {
+                    return true;
+                }
+                else 
+                {
+                    console.log('Please enter your email address! ');
+                    return false;
+                }
+            }
+        },
+    ])
 }
+
 // intern questions
 function addIntern () {
     
 }
+
+// begin building html
+function 
