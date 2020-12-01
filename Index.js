@@ -210,8 +210,9 @@ function addEngineer (managerData) {
         }
     ])
     .then(answers => {
-        console.log(answers);
-        console.log(managerData);
+        addTeamMember();
+        // console.log(managerData);
+        // console.log(answers);
     })
 }
 
