@@ -39,7 +39,7 @@ function promptManager () {
         {
             type: 'number',
             name: 'idNumber',
-            message: 'What is your ID number?',
+            message: 'What is your ID number? ',
             validate: managerIdInput => 
             {
                 if (managerIdInput) 
@@ -73,7 +73,7 @@ function promptManager () {
         {
             type: 'number',
             name: 'officeNo',
-            message: 'What is your office number?',
+            message: 'What is your office number? ',
             validate: managerOfficeNo => 
             {
                 if (managerOfficeNo) 
@@ -95,11 +95,6 @@ function promptManager () {
                 'yes',
                 'no'
             ],
-            
-            // if (confirmAdd) {
-            //     addTeamMember();
-            // }
-            
         },
         // Do I need to add all the answers into an array?    
     ])
@@ -148,7 +143,7 @@ function addEngineer (managerData) {
         {
             type: 'input',
             name: 'nameInput',
-            message: 'What is your name?',
+            message: 'What is your name? ',
             validate: engineerNameInput => 
             {
                 if (engineerNameInput) 
@@ -165,7 +160,7 @@ function addEngineer (managerData) {
         {
             type: 'number',
             name: 'idNumber',
-            message: 'What is your ID number?',
+            message: 'What is your ID number? ',
             validate: engineerIdInput => 
             {
                 if (engineerIdInput) 
@@ -182,7 +177,7 @@ function addEngineer (managerData) {
         {
             type: 'input',
             name: 'email',
-            message: 'What is your email address?',
+            message: 'What is your email address? ',
             validate: engineerEmailInput => 
             {
                 if (engineerEmailInput) 
@@ -196,6 +191,23 @@ function addEngineer (managerData) {
                 }
             }
         },
+        {
+            type: 'input',
+            name: 'github',
+            message: 'What is your GitHub username? ',
+            validate: github => 
+            {
+                if (github) 
+                {
+                    return true;
+                }
+                else 
+                {
+                    console.log('Please enter your GitHub username! ');
+                    return false;
+                }
+            }
+        }
     ])
     .then(answers => {
         console.log(answers);
