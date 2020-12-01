@@ -15,6 +15,7 @@ init();
 function init () {
     promptManager();
 };
+
 // prompt manager for questions
 function promptManager () {
     inquirer.prompt([
@@ -71,7 +72,7 @@ function promptManager () {
         },
         {
             type: 'number',
-            name: 'email',
+            name: 'officeNo',
             message: 'What is your office number?',
             validate: managerOfficeNo => 
             {
@@ -86,9 +87,6 @@ function promptManager () {
                 }
             }
         },
-// Figure out how to set up the loop: Would you like to add another team member?
-        // yes -> Which team member would you like to add? (Engineer or Intern)
-        // no -> Finish creating the HTML
         {
             type: 'list',
             name: 'confirmAdd',
@@ -98,18 +96,25 @@ function promptManager () {
                 'no'
             ],
             
-            if (confirmAdd) {
-                addTeamMember();
-            }
-            // figure out the else function
+            // if (confirmAdd) {
+            //     addTeamMember();
+            // }
+            
         },
-// Do I need to add all the answers into an array?
-        
-    ]);
+        // Do I need to add all the answers into an array?    
+    ])
+    .then(answers => {
+        //console.log(answers);
+
+        if (answers.confirmAdd === 'yes') {
+            addTeamMember(answers);
+        }
+        // figure out the else function
+    })
 };
 
 // ask to add another employee (engineer or intern) or to finish building team
-function addTeamMember () {
+function addTeamMember (managerData) {
     inquirer.prompt([
         {
             type: 'list',
@@ -120,42 +125,33 @@ function addTeamMember () {
                 'Intern',
                 'I do not want to continue.'
             ],
-            validate: nextEmployeeRole => 
-            {
-                if (nextEmployeeRole === 'Engineer') 
-                {
-                    addEngineer();
-                    return true;
-                }
-                else if (nextEmployeeRole === 'Intern') {
-                    addIntern();
-                    return true;
-                }
-                else if (nextEmployeeRole === 'I do not want to continue.') {
-                    // add code to finish building the html
-                    return true;
-                }
-                else 
-                {
-                    console.log('Please enter a valid response! ');
-                    return false;
-                }
-            }
         }
     ])
+    .then(answers =>{
+        if (answers.nextEmployeeRole === 'Engineer') 
+        {
+            addEngineer(managerData);
+        }
+        else if (answers.nextEmployeeRole === 'Intern') {
+            addIntern();
+        }
+        else if (answers.nextEmployeeRole === 'I do not want to continue.') {
+            // add code to finish building the html
+        }
+    })
     
 };
 
 // engineer questions
-function addEngineer () {
+function addEngineer (managerData) {
     inquirer.prompt([
         {
             type: 'input',
             name: 'nameInput',
             message: 'What is your name?',
-            validate: managerNameInput => 
+            validate: engineerNameInput => 
             {
-                if (managerNameInput) 
+                if (engineerNameInput) 
                 {
                     return true;
                 }
@@ -170,9 +166,9 @@ function addEngineer () {
             type: 'number',
             name: 'idNumber',
             message: 'What is your ID number?',
-            validate: managerIdInput => 
+            validate: engineerIdInput => 
             {
-                if (managerIdInput) 
+                if (engineerIdInput) 
                 {
                     return true;
                 }
@@ -187,9 +183,9 @@ function addEngineer () {
             type: 'input',
             name: 'email',
             message: 'What is your email address?',
-            validate: managerEmailInput => 
+            validate: engineerEmailInput => 
             {
-                if (managerEmailInput) 
+                if (engineerEmailInput) 
                 {
                     return true;
                 }
@@ -201,10 +197,15 @@ function addEngineer () {
             }
         },
     ])
+    .then(answers => {
+        console.log(answers);
+        console.log(managerData);
+    })
 }
 
 // intern questions
 function addIntern () {
+    console.log("Adding intern");
     
 }
 
