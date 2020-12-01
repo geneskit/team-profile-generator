@@ -217,8 +217,80 @@ function addEngineer (managerData) {
 
 // intern questions
 function addIntern () {
-    console.log("Adding intern");
-    
+    inquirer.prompt([
+        {
+            type: 'input',
+            name: 'nameInput',
+            message: 'What is your name? ',
+            validate: internNameInput => 
+            {
+                if (internNameInput) 
+                {
+                    return true;
+                }
+                else 
+                {
+                    console.log('Please enter your name! ');
+                    return false;
+                }
+            }
+        },
+        {
+            type: 'number',
+            name: 'idNumber',
+            message: 'What is your ID number? ',
+            validate: internIdInput => 
+            {
+                if (internIdInput) 
+                {
+                    return true;
+                }
+                else 
+                {
+                    console.log('Please enter your ID number! ');
+                    return false;
+                }
+            }
+        },
+        {
+            type: 'input',
+            name: 'email',
+            message: 'What is your email address? ',
+            validate: internEmailInput => 
+            {
+                if (internEmailInput) 
+                {
+                    return true;
+                }
+                else 
+                {
+                    console.log('Please enter your email address! ');
+                    return false;
+                }
+            }
+        },
+        {
+            type: 'input',
+            name: 'github',
+            message: 'What is your GitHub username? ',
+            validate: github => 
+            {
+                if (github) 
+                {
+                    return true;
+                }
+                else 
+                {
+                    console.log('Please enter your GitHub username! ');
+                    return false;
+                }
+            }
+        }
+    ])
+    .then(answers => {
+        console.log(answers);
+        // console.log(managerData);
+    })
 }
 
 // begin building html
