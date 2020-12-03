@@ -13,12 +13,15 @@ init();
 
 // start generator
 function init () {
-    promptManager();
+    promptManager()
+    .then(()=> {
+        console.log(employeeData);
+    })
 };
 
 // prompt manager for questions
 function promptManager () {
-    inquirer.prompt([
+    return inquirer.prompt([
         {
             type: 'input',
             name: 'nameInput',
@@ -39,7 +42,7 @@ function promptManager () {
         {
             type: 'number',
             name: 'idNumber',
-            message: 'What is your ID number?',
+            message: 'What is your ID number? ',
             validate: managerIdInput => 
             {
                 if (managerIdInput) 
@@ -73,7 +76,7 @@ function promptManager () {
         {
             type: 'number',
             name: 'officeNo',
-            message: 'What is your office number?',
+            message: 'What is your office number? ',
             validate: managerOfficeNo => 
             {
                 if (managerOfficeNo) 
@@ -95,19 +98,13 @@ function promptManager () {
                 'yes',
                 'no'
             ],
-            
-            // if (confirmAdd) {
-            //     addTeamMember();
-            // }
-            
-        },
-        // Do I need to add all the answers into an array?    
+        },    
     ])
     .then(answers => {
         //console.log(answers);
 
         if (answers.confirmAdd === 'yes') {
-            addTeamMember(answers);
+            return addTeamMember(answers);
         }
         // figure out the else function
     })
@@ -115,7 +112,7 @@ function promptManager () {
 
 // ask to add another employee (engineer or intern) or to finish building team
 function addTeamMember (managerData) {
-    inquirer.prompt([
+    return inquirer.prompt([
         {
             type: 'list',
             name: 'nextEmployeeRole',
@@ -130,10 +127,10 @@ function addTeamMember (managerData) {
     .then(answers =>{
         if (answers.nextEmployeeRole === 'Engineer') 
         {
-            addEngineer(managerData);
+            return addEngineer(managerData);
         }
         else if (answers.nextEmployeeRole === 'Intern') {
-            addIntern();
+            return addIntern();
         }
         else if (answers.nextEmployeeRole === 'I do not want to continue.') {
             // add code to finish building the html
@@ -144,11 +141,11 @@ function addTeamMember (managerData) {
 
 // engineer questions
 function addEngineer (managerData) {
-    inquirer.prompt([
+    return inquirer.prompt([
         {
             type: 'input',
             name: 'nameInput',
-            message: 'What is your name?',
+            message: 'What is your name? ',
             validate: engineerNameInput => 
             {
                 if (engineerNameInput) 
@@ -165,7 +162,7 @@ function addEngineer (managerData) {
         {
             type: 'number',
             name: 'idNumber',
-            message: 'What is your ID number?',
+            message: 'What is your ID number? ',
             validate: engineerIdInput => 
             {
                 if (engineerIdInput) 
@@ -182,7 +179,7 @@ function addEngineer (managerData) {
         {
             type: 'input',
             name: 'email',
-            message: 'What is your email address?',
+            message: 'What is your email address? ',
             validate: engineerEmailInput => 
             {
                 if (engineerEmailInput) 
@@ -196,17 +193,122 @@ function addEngineer (managerData) {
                 }
             }
         },
+        {
+            type: 'input',
+            name: 'github',
+            message: 'What is your GitHub username? ',
+            validate: github => 
+            {
+                if (github) 
+                {
+                    return true;
+                }
+                else 
+                {
+                    console.log('Please enter your GitHub username! ');
+                    return false;
+                }
+            }
+        }
     ])
     .then(answers => {
-        console.log(answers);
-        console.log(managerData);
+        const engineer = new Engineer(answers.nameInput, answers.idNumber, answers.email, answers.github);
+        employeeData.push(engineer);
+        return addTeamMember();
     })
 }
 
 // intern questions
 function addIntern () {
-    console.log("Adding intern");
-    
+    return inquirer.prompt([
+        {
+            type: 'input',
+            name: 'nameInput',
+            message: 'What is your name? ',
+            validate: internNameInput => 
+            {
+                if (internNameInput) 
+                {
+                    return true;
+                }
+                else 
+                {
+                    console.log('Please enter your name! ');
+                    return false;
+                }
+            }
+        },
+        {
+            type: 'number',
+            name: 'idNumber',
+            message: 'What is your ID number? ',
+            validate: internIdInput => 
+            {
+                if (internIdInput) 
+                {
+                    return true;
+                }
+                else 
+                {
+                    console.log('Please enter your ID number! ');
+                    return false;
+                }
+            }
+        },
+        {
+            type: 'input',
+            name: 'email',
+            message: 'What is your email address? ',
+            validate: internEmailInput => 
+            {
+                if (internEmailInput) 
+                {
+                    return true;
+                }
+                else 
+                {
+                    console.log('Please enter your email address! ');
+                    return false;
+                }
+            }
+        },
+        {
+            type: 'input',
+            name: 'school',
+            message: 'What school are you currently attending? ',
+            validate: internSchool => 
+            {
+                if (internSchool) 
+                {
+                    return true;
+                }
+                else 
+                {
+                    console.log('Please enter your school! ');
+                    return false;
+                }
+            }
+        }
+    ])
+    .then(answers => {
+        const intern = new Intern(answers.nameInput, answers.idNumber, answers.email, answers.school);
+        employeeData.push(intern);
+        return addTeamMember();
+    })
 }
 
 // begin building html
+const html = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Member Profile</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+</head>
+<body>
+    
+</body>
+</html>
+`
