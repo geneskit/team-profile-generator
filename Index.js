@@ -95,8 +95,7 @@ function promptManager () {
                 'yes',
                 'no'
             ],
-        },
-        // Do I need to add all the answers into an array?    
+        },    
     ])
     .then(answers => {
         //console.log(answers);
@@ -272,26 +271,40 @@ function addIntern () {
         },
         {
             type: 'input',
-            name: 'github',
-            message: 'What is your GitHub username? ',
-            validate: github => 
+            name: 'school',
+            message: 'What school are you currently attending? ',
+            validate: internSchool => 
             {
-                if (github) 
+                if (internSchool) 
                 {
                     return true;
                 }
                 else 
                 {
-                    console.log('Please enter your GitHub username! ');
+                    console.log('Please enter your school! ');
                     return false;
                 }
             }
         }
     ])
     .then(answers => {
+        addTeamMember();
         console.log(answers);
-        // console.log(managerData);
     })
 }
 
 // begin building html
+const html = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Member Profile</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+</head>
+<body>
+    
+</body>
+</html>
+`
