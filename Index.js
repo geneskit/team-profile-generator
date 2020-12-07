@@ -302,7 +302,7 @@ function addIntern () {
 }
 
 function writeToFile (fileName, data) {
-    fs.writeFileSync(dist, generateHtml(employees))
+    fs.writeFileSync(dist, generateHtml(employeeData), 'utf-8')
 }
 
 startGenerator();
