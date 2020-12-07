@@ -7,6 +7,9 @@ const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const Manager = require("./lib/Manager");
 
+const DIRECTORY_PATH = path.resolve(_dirname, 'dist');
+const dist = path.join(DIRECTORY_PATH, 'htmlPage.html')
+
 const employeeData = [];
 
 init();
@@ -14,9 +17,9 @@ init();
 // start generator
 function init () {
     promptManager()
-    .then(()=> {
-        console.log(employeeData);
-    })
+    // .then(()=> {
+    //     console.log(employeeData);
+    // })
 };
 
 // prompt manager for questions
@@ -106,7 +109,9 @@ function promptManager () {
         if (answers.confirmAdd === 'yes') {
             return addTeamMember(answers);
         }
-        // figure out the else function
+        else {
+            return writeToFile();
+        }
     })
 };
 
@@ -132,11 +137,10 @@ function addTeamMember (managerData) {
         else if (answers.nextEmployeeRole === 'Intern') {
             return addIntern();
         }
-        else if (answers.nextEmployeeRole === 'I do not want to continue.') {
-            // add code to finish building the html
+        else {
+            return writeToFile();
         }
     })
-    
 };
 
 // engineer questions
@@ -297,18 +301,8 @@ function addIntern () {
     })
 }
 
-// begin building html
-const html = `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Team Member Profile</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
-</head>
-<body>
-    
-</body>
-</html>
-`
+function writeToFile (fileName, data) {
+    fs.writeFileSync(dist, generateHtml(employees))
+}
+
+startGenerator();
