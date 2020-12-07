@@ -7,7 +7,8 @@ const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const Manager = require("./lib/Manager");
 
-const DIRECTORY_PATH = path.resolve(_dirname, 'dist');
+const generateHtml = require('./lib/generateHtml')
+const DIRECTORY_PATH = path.resolve(__dirname, 'dist');
 const dist = path.join(DIRECTORY_PATH, 'htmlPage.html')
 
 const employeeData = [];
@@ -16,10 +17,7 @@ init();
 
 // start generator
 function init () {
-    promptManager()
-    // .then(()=> {
-    //     console.log(employeeData);
-    // })
+    promptManager();
 };
 
 // prompt manager for questions
@@ -104,8 +102,6 @@ function promptManager () {
         },    
     ])
     .then(answers => {
-        //console.log(answers);
-
         if (answers.confirmAdd === 'yes') {
             return addTeamMember(answers);
         }
@@ -305,4 +301,3 @@ function writeToFile (fileName, data) {
     fs.writeFileSync(dist, generateHtml(employeeData), 'utf-8')
 }
 
-startGenerator();
