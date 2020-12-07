@@ -103,7 +103,9 @@ function promptManager () {
     ])
     .then(answers => {
         if (answers.confirmAdd === 'yes') {
-            return addTeamMember(answers);
+            const manager = new Manager(answers.nameInput, answers.idNumber, answers.email, answers.officeNo);
+            employeeData.push(manager);
+            return addTeamMember();
         }
         else {
             return writeToFile();
@@ -112,7 +114,7 @@ function promptManager () {
 };
 
 // ask to add another employee (engineer or intern) or to finish building team
-function addTeamMember (managerData) {
+function addTeamMember () {
     return inquirer.prompt([
         {
             type: 'list',
@@ -128,7 +130,7 @@ function addTeamMember (managerData) {
     .then(answers =>{
         if (answers.nextEmployeeRole === 'Engineer') 
         {
-            return addEngineer(managerData);
+            return addEngineer();
         }
         else if (answers.nextEmployeeRole === 'Intern') {
             return addIntern();
